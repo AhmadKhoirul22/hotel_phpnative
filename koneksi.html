@@ -1,0 +1,32 @@
+<?php
+    if (isset($_POST['login'])){
+// untuk mengkoneksikan
+$hostname = "localhost";
+$username = "root";
+$password = "";
+$database = "user";
+$koneksi = mysqli_connect($hostname,$username,$password,$database);
+// if (!$koneksi){
+//     echo "gagal";
+// }else{
+//     echo"berhasil";
+// }
+$username = $_POST['username'];
+$password = $_POST['password'];
+$query_get_data = "select * from user where username = '$username' and password ='$password'";
+$exec = mysqli_query($koneksi, $query_get_data);
+$get_data = mysqli_fetch_array($exec);
+
+$user_type = $get_data['user_type'];
+
+if ($user_type == 'tamu'){
+    header('location:tamu.php');
+} if else ($user_type == 'resepsionis'){
+    header('location:resepsionis.php');
+} if else($user_type == 'administator'){
+    header('location:administator.php');
+} else {
+}
+};
+?>
+header('location:index.php');
